@@ -13,10 +13,19 @@ router.get('/templates', function(req,res,next){
   });
 });
 
-router.post('/templates/sign', function(req,res,next){
+router.post('/templates/signT&C', function(req,res,next){
   // console.log(req.body);
   var student = req.body;
-  hellosign.signTemplate(student,function(response){
+  var type = "terms"
+  hellosign.signTemplate(type,student,function(response){
+    console.log(response);
+  })
+})
+
+router.post('/templates/signWelcome',function(req,res,next){
+  var student = req.body;
+  var type = "wel"
+  hellosign.signTemplate(type,student,function(response){
     console.log(response);
   })
 })

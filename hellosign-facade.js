@@ -22,9 +22,9 @@ var getTemplateList = function getTemplateList(callback){
     })
 };
 
-var signTemplate = function signTemplate(student, callback){
-  console.log("hello?")
-  var options = {
+var signTemplate = function signTemplate(type,student, callback){
+  var options;
+  var tcOptions = {
     test_mode:1,
     template_id: 'aa67d4e8143421720fba63b326656e63aff924eb',
     subject: 'Dev Academy Terms and Conditions',
@@ -40,7 +40,32 @@ var signTemplate = function signTemplate(student, callback){
       "Student Name": student.name
     }
   };
-  console.log(options);
+  var welcomeOptions = {
+    test_mode:1,
+    template_id: '88c75960985757d22be9e7c3497e98d6a17ca4e6',
+    signers:[
+      {
+        email_address: student.email,
+        name: student.name,
+        role: 'Student'
+      }
+    ],
+    custom_fields: {
+      "Student": student.name,
+      "Cohort": student.cohort.name,
+      "P0_Date": student.cohort.dates.P0,
+      "P0_start":student.cohort.dates.P0,
+      "BC_start":student.cohort.dates.Bootcampe,
+      "Grad_start":student.cohort.dates.Graduation,
+      "Careers":student.cohort.dates.Careers
+    }
+  }
+
+  if(type==="terms"){
+    options = tcOptions;
+  }else{
+    options = welcomeOptions;
+  }
 
   hellosign.signatureRequest.sendWithTemplate(options)
     .then(function(response){

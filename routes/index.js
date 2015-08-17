@@ -18,7 +18,7 @@ router.post('/templates/signT&C', function(req,res,next){
   var student = req.body;
   var type = "terms"
   hellosign.signTemplate(type,student,function(response){
-    console.log(response);
+    res.status(200).json(response);
   })
 })
 
@@ -26,7 +26,7 @@ router.post('/templates/signWelcome',function(req,res,next){
   var student = req.body;
   var type = "wel"
   hellosign.signTemplate(type,student,function(response){
-    console.log(response);
+    res.status(200).json(response);
   })
 })
 

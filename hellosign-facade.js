@@ -1,15 +1,17 @@
 var dotenv = require('dotenv')
-var baseUri = "https://api.hellosign.com/v3"
-var auth = {api_key:process.env.HELLOSIGN_KEY}
+dotenv.load()
 var unirest = require('unirest')
+var baseUri = "https://api.hellosign.com/v3"
+var auth = {
+    user:process.env.HELLOSIGN_KEY,
+    pass:"",
+    sendImmediately:true
+    }
+
 var headers ={
     'Accept':'application/json',
     'Content-Type':'application/json'
   };
-
-dotenv.load()
-
-
 
 var getTemplateList = function getTemplateList(callback){
   console.log("why?");
@@ -17,7 +19,7 @@ var getTemplateList = function getTemplateList(callback){
     .auth(auth)
     .header(headers)
     .end(function(response){
-      console.log(response);
+      callback(response);
     })
 };
 

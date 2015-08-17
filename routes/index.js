@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/list', function(req,res,next){
   hellosign.getTemplateList(function(response){
-    res.send(200).json(response)
+    res.status(200).json(response)
   });
 });
 

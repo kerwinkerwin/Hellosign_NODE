@@ -18,7 +18,7 @@ var getTemplateList = function getTemplateList(callback){
     .auth(auth)
     .header(headers)
     .end(function(response){
-      callback(response);
+      callback(null,response);
     })
 };
 
@@ -68,10 +68,10 @@ var signTemplate = function signTemplate(type,student, callback){
 
   hellosign.signatureRequest.sendWithTemplate(options)
     .then(function(response){
-      callback(response)
+      callback(null,response)
     })
     .catch(function(err){
-      callback(err)
+      callback(err, null)
     });
 };
 

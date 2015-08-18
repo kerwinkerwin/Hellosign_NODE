@@ -22,3 +22,16 @@ describe("GET /templates", function(){
     done();
   });
 });
+
+describe("POST /templates/signT&C", function(done){
+  var parsedResponse;
+  var res;
+  before(function(done){
+    request('http://localhost:3000/templates', function(error,response,body){
+      res = response;
+      parsedResponse = JSON.parse(response.body)
+      done();
+    });
+  });
+  
+})

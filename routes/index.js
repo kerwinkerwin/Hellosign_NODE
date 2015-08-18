@@ -23,12 +23,8 @@ router.post('/templates/signTerms', function(req,res,next){
   var type = "terms"
   hellosign.signTemplate(type,student,function(err,response){
     if(err){
-      console.log(err);
       next(err);
     }else
-      console.log("fuck")
-      // console.log(response);
-      console.log(res.status(201));
     res.status(201).json({error:"wahh"});
   })
 })

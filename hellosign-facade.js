@@ -54,12 +54,11 @@ var signTemplate = function signTemplate(type,student, callback){
       "Student": student.name,
       "Cohort": student.cohort.name,
       "P0_Date": student.cohort.dates.P0,
-      "P0_start":student.cohort.dates.P0,
-      "BC_start":student.cohort.dates.Bootcampe,
+      "BC_start":student.cohort.dates.Bootcamp,
       "Grad_start":student.cohort.dates.Graduation,
-      "Careers":student.cohort.dates.Careers
+      "Careers":student.cohort.dates.Careers,
     }
-  }
+  };
 
   if(type==="terms"){
     options = tcOptions;
@@ -69,14 +68,11 @@ var signTemplate = function signTemplate(type,student, callback){
 
   hellosign.signatureRequest.sendWithTemplate(options)
     .then(function(response){
-      console.log("this");
-      console.log(response);
+      callback(response)
     })
     .catch(function(err){
-      console.log("2");
-      console.log(err);
+      callback(err)
     });
-
 };
 
 module.exports ={

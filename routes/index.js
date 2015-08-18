@@ -14,7 +14,6 @@ router.get('/templates', function(req,res,next){
 });
 
 router.post('/templates/signT&C', function(req,res,next){
-  // console.log(req.body);
   var student = req.body;
   var type = "terms"
   hellosign.signTemplate(type,student,function(response){

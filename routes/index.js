@@ -25,7 +25,7 @@ router.post('/templates/signTerms', function(req,res,next){
     if(err){
       next(err);
     }else
-    res.status(201).json({error:"wahh"});
+    res.status(201).json(response);
   })
 })
 

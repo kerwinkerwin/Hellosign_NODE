@@ -1,7 +1,7 @@
 {
   "name": "eda-hellosign",
   "version": "1.0.0",
-  "author" : "Kerwin O'Malley omalley.kerwin@gmail.com",
+  "author": "Kerwin O'Malley omalley.kerwin@gmail.com",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -22,5 +22,8 @@
     "request": "^2.60.0",
     "serve-favicon": "~2.3.0",
     "unirest": "^0.4.2"
+  },
+  "devDependencies": {
+    "nock": "^2.10.0"
   }
 }

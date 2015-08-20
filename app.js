@@ -4,7 +4,8 @@ var app = require('express')()
 var hellosignCredentials = {
   apiKey:process.env.HELLOSIGN_KEY
 }
-var hellosign = require('./hellosign-facade.js')(hellosignCredentials)
+
+var hellosign = require('@eda/hellosign-facade')(hellosignCredentials)
 
 
 var server = app.listen(3000, function () {

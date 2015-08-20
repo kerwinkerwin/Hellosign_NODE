@@ -1,13 +1,23 @@
-var dotenv = require('dotenv')
-dotenv.load()
 var unirest = require('unirest')
 var baseUri = "https://api.hellosign.com/v3"
-var auth = {
-    user:process.env.HELLOSIGN_KEY,
-    pass:"",
-    sendImmediately:true
-    }
-var hellosign = require('hellosign-sdk')({key:process.env.HELLOSIGN_KEY});
+var auth
+var hellosign
+
+var initialize = function initialize(hellosignCredentials){
+  var HELLOSIGN_KEY = hellosignCredentials.apiKey
+  auth = {
+      user:HELLOSIGN_KEY,
+      pass:"",
+      sendImmediately:true
+      }
+  hellosign = require('hellosign-sdk')({key:HELLOSIGN_KEY});
+
+  return {
+    getTemplateList:getTemplateList,
+    signTemplate: signTemplate
+  }
+}
+
 var headers ={
     'Accept':'application/json',
     'Content-Type':'application/json'
@@ -74,8 +84,4 @@ var signTemplate = function signTemplate(type,student, callback){
       callback(err, null)
     });
 };
-
-module.exports ={
-  getTemplateList:getTemplateList,
-  signTemplate: signTemplate
-};
+module.exports = initialize

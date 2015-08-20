@@ -1,29 +1,50 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var dotenv = require('dotenv')
+dotenv.load()
+var app = require('express')()
+var hellosignCredentials = {
+  apiKey:process.env.HELLOSIGN_KEY
+}
+var hellosign = require('./hellosign-facade.js')(hellosignCredentials)
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
-var app = express();
+var server = app.listen(3000, function () {
+  var port = server.address().port
+  console.log('Server started on port: ' + port)
+})
+
+app.get('/templates', function(req,res,next){
+  hellosign.getTemplateList(function(err,response){
+    if(err){
+      next(err);
+    }else
+    res.status(200).json(response)
+  });
+});
+
+app.post('/templates/signTerms', function(req,res,next){
+  var student = req.body;
+  var type = "terms"
+  hellosign.signTemplate(type,student,function(err,response){
+    if(err){
+      next(err);
+    }else
+    res.status(201).json(response);
+  })
+})
+
+app.post('/templates/signWelcome',function(req,res,next){
+  var student = req.body;
+  var type = "wel"
+  hellosign.signTemplate(type,student,function(err,response){
+    if(err){
+      console.log(err)
+      next(err);
+    }else
+    res.status(201).json(response);
+  })
+})
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,6 +76,3 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-
-module.exports = app;
